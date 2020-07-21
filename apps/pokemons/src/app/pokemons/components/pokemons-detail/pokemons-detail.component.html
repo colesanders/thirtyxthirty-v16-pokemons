@@ -1,0 +1,50 @@
+<mat-card class="mat-card-light"> 
+    <mat-card-header style="display: flex; justify-content: space-between;">
+      <mat-card-title class="accent">
+        <span *ngIf="pokemonForm.value.id !== null; else elseBlock">
+          Editing Pokemon
+        </span>
+        <ng-template #elseBlock>
+          Create Pokemon
+        </ng-template>
+      </mat-card-title>
+      
+    </mat-card-header>
+  <form [formGroup]="pokemonForm" (ngSubmit)="saved.emit(pokemonForm.value)">
+    <mat-card-content>
+
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="string">
+      </mat-form-field>
+      <br>
+
+
+      <mat-form-field>
+        <mat-label>Species</mat-label>
+        <input matInput formControlName="species" type="string">
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <mat-label>Typing</mat-label>
+        <input matInput formControlName="typing" type="string">
+      </mat-form-field>
+      <br>
+
+
+      <mat-form-field>
+        <mat-label>Weight</mat-label>
+        <input matInput formControlName="weight" type="number">
+      </mat-form-field>
+      <br>
+
+    </mat-card-content>
+    <mat-card-actions style="display: flex; justify-content: space-between;">
+      <button [disabled]="pokemonForm.invalid" type="submit" mat-button color="primary">Save</button>
+      <button type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();cancel();">
+        Cancel
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

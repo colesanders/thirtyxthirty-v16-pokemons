@@ -1,0 +1,30 @@
+<div class="secondary-div">
+    <mat-toolbar class="secondary-toolbar">
+        <span>Pokemon List</span>
+        <div *ngIf="(pokemon$|async) !== undefined && (pokemon$|async) !== null" style="margin-left: 10px">
+            <a mat-button class="nav-link" 
+            [routerLink]="(pokemon$ | async).id" routerLinkActive="active">
+                <span >
+                  Pokemon Overview
+                </span>
+            </a>
+        </div>
+    </mat-toolbar>
+</div>
+
+<div class="pokemons-containers">
+    <div class="pokemons-list">
+        <thirty-pokemons-list [pokemons]="pokemons$ | async" (selected)="select($event)" (deleted)="delete($event)">
+        </thirty-pokemons-list>
+    </div>
+    <div [@openClose]="detailOpen ? 'open' : 'closed'" >
+        <thirty-pokemons-detail [pokemon]="pokemon$ | async" (saved)="save($event)" (cancelled)="cancel()" 
+        (click)="focusDetail();$event.stopImmediatePropagation()" > 
+        </thirty-pokemons-detail>
+    </div>
+</div>
+
+<div class="pokemons-containers">
+    <router-outlet>
+    </router-outlet>
+</div>
